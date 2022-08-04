@@ -1,7 +1,7 @@
-var ticTacToe = artifacts.require('./tictactoe.sol');
+var tictactoe = artifacts.require("./tictactoe.sol")
 
-const account2 = '';
+const address2 = '';
 
-module.exports = function(deployer, network, accounts) {
-    deployer.deploy(ticTacToe, account2, {gasLimit : 500000})
+module.exports = function(deployer) { 
+    deployer.deploy(Ratings, address2, {gas: 6700000});
 }
