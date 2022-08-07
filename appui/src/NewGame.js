@@ -3,18 +3,13 @@ import {React, useState} from 'react'
 
 const NewGame = (props) => {
 
-    const [address, setAddress] = useState('')
-
-
-     
-
+    const initializeContract = () =>{
+        console.log('web3 transaction of constructor call and using setStates to update parent states')
+    }
+    
     return (
         <>
-            <form>
-                <input type="text" value={address} onChange={(event) => setAddress(event)}></input>
-
-            </form>
-
+            <button onClick={()=>initializeContract()}></button>
         </>
     )
 }
