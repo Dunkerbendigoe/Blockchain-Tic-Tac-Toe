@@ -1,31 +1,43 @@
-import React from 'react'
+import {React, useEffect, useState, usePrevious} from 'react'
 
 const Board =  () => {
 
-  const BoardElement = (prop) =>{
+  const [boardElements, setBoardElements] = useState([0,0,0,0,0,0,0,0,0])
 
+  const prevBoard = usePrevious(boardElements)
+
+  useEffect(() =>{
+    setTimeout(()=>{
+      console.log('fetching data. If board data is the same as previous, then do not setState')
+    })
+  });
+
+  const BoardElement = (props) =>{
 
     const clickHandler = () =>{
       console.log('checking tictac toe, valid move, and then play')
     }
 
-    return <li data-pos={prop} onClick={() =>clickHandler()}/>
+    return <li data-pos={props} onClick={() =>clickHandler()}></li>
   }
 
   return (
-    <>
-        <ul>
-            <BoardElement props={'0'}/>
-            <BoardElement props={'1'}/>
-            <BoardElement props={'2'}/>
-            <BoardElement props={'3'}/>
-            <BoardElement props={'4'}/>
-            <BoardElement props={'5'}/>
-            <BoardElement props={'6'}/>
-            <BoardElement props={'7'}/>
-            <BoardElement props={'8'}/>
-        </ul>
-    </>
+        <>
+
+          <ul>
+            <BoardElement props={boardElements[0]}/>
+            <BoardElement props={boardElements[1]}/>
+            <BoardElement props={boardElements[2]}/>
+            <BoardElement props={boardElements[3]}/>
+            <BoardElement props={boardElements[4]}/>
+            <BoardElement props={boardElements[5]}/>
+            <BoardElement props={boardElements[6]}/>
+            <BoardElement props={boardElements[7]}/>
+            <BoardElement props={boardElements[8]}/>
+          </ul>
+          
+        </>
+    
   )
 }
 
