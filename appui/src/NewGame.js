@@ -1,15 +1,43 @@
 import {React, useState} from 'react'
+import { TicTacToeContract, web3, account0 } from './config'
 
 
-const NewGame = (props) => {
 
-    const initializeContract = () =>{
-        console.log('web3 transaction of constructor call and using setStates to update parent states')
+const NewGame = ({parentState, setParentState}) => {
+
+
+    const [opponentAddress, setOpponentAddress] = useState('')
+    const [receiptContractAddress, setReceiptContractAddress] = useState('')
+
+    const initializeContract = (opponentAddress) =>{
+
+        if (typeof parentState[1] != 'undefined'){
+            console.log('There seems to be an ongoing game already!')
+        }    
+        else{
+            TicTacToeContract.methods.newGame(opponentAddress).send({from:account0}, (error, txHash) =>{
+                web3.eth.getTransactionReceipt(txHash, function(err, receipt){
+                    setParentState[1](receipt.to)
+                    setParentState[0]({playerNumber:1, hidden:false})
+                    setReceiptContractAddress(receipt.to)
+                })
+            });
+        }
+        
+    
     }
     
     return (
         <>
-            <button onClick={()=>initializeContract()}></button>
+                    
+            
+            <h1>Share this address with your opponent once you press new game :  {receiptContractAddress ? receiptContractAddress : ""}</h1>
+
+            Enter opponent Address and Press New Game<br/><br/>
+            <form>
+                <input type="text" onChange={(event)=>setOpponentAddress(event.target.value)}></input>
+            </form>
+            <button onClick={()=>initializeContract(opponentAddress)}>New Game</button>
         </>
     )
 }

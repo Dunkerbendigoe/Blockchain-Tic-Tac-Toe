@@ -3,14 +3,15 @@ import {React, useEffect, useState, usePrevious} from 'react'
 const Board =  () => {
 
   const [boardElements, setBoardElements] = useState([0,0,0,0,0,0,0,0,0])
+  
 
-  const prevBoard = usePrevious(boardElements)
 
-  useEffect(() =>{
-    setTimeout(()=>{
-      console.log('fetching data. If board data is the same as previous, then do not setState')
-    })
-  });
+  useEffect(() => {
+    const interval = setInterval(() =>{
+      console.log('calling board function and comparing')
+    }, 2000)
+    return () => clearInterval(interval)
+  }, [boardElements])
 
   const BoardElement = (props) =>{
 

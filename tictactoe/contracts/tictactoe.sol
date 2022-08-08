@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: GPL-3.0
+
 pragma solidity ^0.8.7;
 
     contract Tictactoe {
@@ -11,13 +13,19 @@ pragma solidity ^0.8.7;
 
         //}
 
+        constructor(address payable p2) {
+            p1Address = payable(msg.sender);
+            p2Address = p2;
+            turnNumber = 1;
+        }
+
         function subCheckWin(uint a, uint b, uint c) private view returns (bool){
             return board[a]>0 && board[a]==board[b] && board[b]==board[c];
         }
 
 
-        function myTurn(uint turnNumber) private returns (bool) {
-            return (msg.sender == p1Address && turnNumber == 1) || (msg.sender == p2Address && turnNumber == 2);
+        function myTurn(uint _turnNumber) public view returns (bool) {
+            return (msg.sender == p1Address && _turnNumber == 1) || (msg.sender == p2Address && _turnNumber == 2);
 
         }
 
@@ -71,10 +79,13 @@ pragma solidity ^0.8.7;
         }
         }
 
-        function TicTacToe(address payable p2) public {
+
+
+        function newGame(address payable p2) public {
             p1Address = payable(msg.sender);
             p2Address = p2;
             turnNumber = 1;
+            board = new uint[](9);
         }
 
     }
