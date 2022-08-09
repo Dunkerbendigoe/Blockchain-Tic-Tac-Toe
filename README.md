@@ -1,1 +1,1 @@
-# Blockchain-Tick-Tack-Toe
+# Blockchain-Tic-Tac-Toe
