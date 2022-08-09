@@ -1,11 +1,8 @@
 import './App.css';
-import {React, useState} from 'react'
+import {React, useEffect, useState} from 'react'
 import JoinGame from './JoinGame';
 import NewGame from './NewGame';
 import Board from './Board';
-import { TicTacToeContract } from './config';
-
-
 
 function App() {
 
@@ -13,10 +10,14 @@ function App() {
   const [TicTacToe, setTicTacToe] = useState()
 
 
-  const testVars = () =>{
-    console.log(playerNumber)
-    console.log(TicTacToe)
-  }
+  // Purely meant for refreshing app and spreading current state.
+  useEffect(() =>{
+    const interval = setInterval(() =>{
+
+    }, 2000)
+    return () => clearInterval(interval)
+  }, [TicTacToe])
+
 
   return (
    <>
@@ -26,12 +27,9 @@ function App() {
     <NewGame  parentState={[playerNumber, TicTacToe]} setParentState={[setPlayerNumber, setTicTacToe]}></NewGame>
     <br/><br/>
     <JoinGame parentState={[playerNumber, TicTacToe]} setParentState={[setPlayerNumber, setTicTacToe]}></JoinGame>
-
-    <button onClick={() => testVars()}>Click me</button>
-
     <br></br>
 
-    <Board></Board>
+    <Board parentState={[playerNumber, TicTacToe]} setParentState={[setPlayerNumber, setTicTacToe]}></Board>
     
    </>
   );

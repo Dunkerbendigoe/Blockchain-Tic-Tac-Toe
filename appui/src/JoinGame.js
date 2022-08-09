@@ -1,4 +1,5 @@
 import {React, useState} from 'react'
+import { TicTacToeABI, web3 } from './config'
 
 const JoinGame = ({parentState, setParentState}) => {
 
@@ -7,7 +8,8 @@ const JoinGame = ({parentState, setParentState}) => {
 
     const attachToContract = (address) =>{
         setParentState[0]({playerNumber: 2, hidden : true})
-        setParentState[1](address)
+        setParentState[1](new web3.eth.Contract(TicTacToeABI, address))
+        console.log(parentState[1])
     }
      
 

@@ -79,13 +79,22 @@ pragma solidity ^0.8.7;
         }
         }
 
+    function winner() public view returns (uint) {
 
+        //getter for the winner attribute
+        if (winCondition>0) {
+            return winCondition;
+        } else {
+            return 0;
+        }    
+    }
 
         function newGame(address payable p2) public {
             p1Address = payable(msg.sender);
             p2Address = p2;
             turnNumber = 1;
             board = new uint[](9);
+            winCondition = 0;
         }
 
     }

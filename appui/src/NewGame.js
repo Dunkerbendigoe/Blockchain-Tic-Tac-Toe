@@ -1,5 +1,5 @@
 import {React, useState} from 'react'
-import { TicTacToeContract, web3, account0 } from './config'
+import { TicTacToeContract, web3, account0, TicTacToeABI } from './config'
 
 
 
@@ -17,7 +17,7 @@ const NewGame = ({parentState, setParentState}) => {
         else{
             TicTacToeContract.methods.newGame(opponentAddress).send({from:account0}, (error, txHash) =>{
                 web3.eth.getTransactionReceipt(txHash, function(err, receipt){
-                    setParentState[1](receipt.to)
+                    setParentState[1](new web3.eth.Contract(TicTacToeABI, receipt.to))
                     setParentState[0]({playerNumber:1, hidden:false})
                     setReceiptContractAddress(receipt.to)
                 })
