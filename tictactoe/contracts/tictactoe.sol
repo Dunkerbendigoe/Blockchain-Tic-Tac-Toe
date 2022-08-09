@@ -9,9 +9,6 @@ pragma solidity ^0.8.7;
         uint winCondition;
         uint turnNumber;
 
-        //function makeMove(uint board[]) returns (){
-
-        //}
 
         constructor(address payable p2) {
             p1Address = payable(msg.sender);
@@ -59,7 +56,7 @@ pragma solidity ^0.8.7;
         if (subCheckWin(2,4,6)) {
             return board[2];
         }
-        if (board[0]+board[1]+board[1]+board[1]+board[1]+board[1]+board[1]+board[1]+board[1] == 13){
+        if (board[0]+board[1]+board[2]+board[3]+board[4]+board[5]+board[6]+board[7]+board[8] == 13){
             return 3;
         }
         return 0;

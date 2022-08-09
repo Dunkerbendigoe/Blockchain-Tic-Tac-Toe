@@ -1,5 +1,5 @@
 import {React, useEffect, useState, useRef} from 'react'
-import { web3, account0, account1} from './config'
+import { web3, defaultAccount} from './config'
 
 const Board =  ({parentState, setParentState}) => {
 
@@ -28,25 +28,9 @@ const Board =  ({parentState, setParentState}) => {
           return;
         }
         const target = event.target.getAttribute("data-pos")
-        console.log(target)
-        let accnt;
-            if(parentState[0].playerNumber == 1){
-              accnt = account0;
-            }else{
-              accnt = account1;
-          }
-          console.log("playing as")
-            console.log(parentState[0].playerNumber)
-        parentState[1].methods.validMove(target).call({from:accnt}).then(function(res){
+        parentState[1].methods.validMove(target).call({from:defaultAccount}).then(function(res){
           if(res){
-            let accnt;
-            if(parentState[0].playerNumber == 1){
-              accnt = account0;
-            }else{
-              accnt = account1;
-            }
-            console.log(parentState[0])
-            parentState[1].methods.play(target).send({from: accnt, gas:'3000000'}).catch(function(err){
+            parentState[1].methods.play(target).send({from: defaultAccount, gas:'3000000'}).catch(function(err){
               console.log('something went wrong ' + String(err))
             }).then(function(res){
               // Tried to remove event listener
