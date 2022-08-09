@@ -1,5 +1,5 @@
 import {React, useState} from 'react'
-import { TicTacToeContract, web3, defaultAccount, TicTacToeABI } from './config'
+import { TicTacToeContract, web3, account0, TicTacToeABI } from './config'
 
 
 
@@ -15,7 +15,10 @@ const NewGame = ({parentState, setParentState}) => {
             console.log('There seems to be an ongoing game already!')
         }    
         else{
-            TicTacToeContract.methods.newGame(opponentAddress).send({from:defaultAccount}, (error, txHash) =>{
+            console.log(opponentAddress)
+            const converted = web3.utils.toChecksumAddress(opponentAddress)
+            console.log(converted)
+            TicTacToeContract.methods.newGame(opponentAddress).send({from:account0.address}, (error, txHash) =>{
                 web3.eth.getTransactionReceipt(txHash, function(err, receipt){
                     setParentState[1](new web3.eth.Contract(TicTacToeABI, receipt.to))
                     setParentState[0]({playerNumber:1, hidden:false})

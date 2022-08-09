@@ -12,7 +12,7 @@ const JoinGame = ({parentState, setParentState}) => {
 
         // Although I setParent, the parentState passed is the previous, so I cannot access what I've just set. 
         let tttCaller = new web3.eth.Contract(TicTacToeABI, address)
-        tttCaller.methods.myTurn(2).call({from:account1}).then(function(res){
+        tttCaller.methods.myTurn(2).call({from:account1.address}).then(function(res){
             if(res){
                 setParentState[2]('Your turn!')
             }else{

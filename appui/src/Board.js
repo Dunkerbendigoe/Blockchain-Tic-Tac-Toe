@@ -1,5 +1,5 @@
 import {React, useEffect, useState, useRef} from 'react'
-import { web3, defaultAccount} from './config'
+import { web3, account0, account1} from './config'
 
 const Board =  ({parentState, setParentState}) => {
 
@@ -43,9 +43,9 @@ const Board =  ({parentState, setParentState}) => {
           return;
         }
         const target = event.target.getAttribute("data-pos")        
-        parentState[1].methods.validMove(target).call({from:player}).then(function(res){
+        parentState[1].methods.validMove(target).call({from:player.address}).then(function(res){
           if(res){
-            parentState[1].methods.play(target).send({from: player, gas:'3000000'}).catch(function(err){
+            parentState[1].methods.play(target).send({from: player.address, gas:'3000000'}).catch(function(err){
               console.log('something went wrong ' + String(err))
             }).then(function(res){
               // Tried to remove event listener
@@ -53,9 +53,9 @@ const Board =  ({parentState, setParentState}) => {
               //element.removeEventListener('click', clickHandler)
               // + then force update or render whichever, not needed since we can't remove event listener yet
               
-              parentState[1].methods.winner().call({from:player}).then(function(res){
+              parentState[1].methods.winner().call({from:player.address}).then(function(res){
                 if(res == 0){
-                  parentState[1].methods.myTurn(parentState[0].playerNumber).call({from:player}).then(function(res){
+                  parentState[1].methods.myTurn(parentState[0].playerNumber).call({from:player.address}).then(function(res){
                     if(res){
                       setParentState[2]('Your Turn!')
                     }else{
