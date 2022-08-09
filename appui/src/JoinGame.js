@@ -1,5 +1,5 @@
 import {React, useState} from 'react'
-import { TicTacToeABI, web3 } from './config'
+import { TicTacToeABI, web3, account1} from './config'
 
 const JoinGame = ({parentState, setParentState}) => {
 
@@ -9,7 +9,16 @@ const JoinGame = ({parentState, setParentState}) => {
     const attachToContract = (address) =>{
         setParentState[0]({playerNumber: 2, hidden : true})
         setParentState[1](new web3.eth.Contract(TicTacToeABI, address))
-        console.log(parentState[1])
+
+        // Although I setParent, the parentState passed is the previous, so I cannot access what I've just set. 
+        let tttCaller = new web3.eth.Contract(TicTacToeABI, address)
+        tttCaller.methods.myTurn(2).call({from:account1}).then(function(res){
+            if(res){
+                setParentState[2]('Your turn!')
+            }else{
+                setParentState[2]('Not Your Turn!')
+            }
+        })
     }
      
 

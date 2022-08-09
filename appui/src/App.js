@@ -8,6 +8,8 @@ function App() {
 
   const [playerNumber, setPlayerNumber] = useState({playerNumber: 0, hidden : true})
   const [TicTacToe, setTicTacToe] = useState()
+  const [gameOver, setGameOver] = useState(false)
+  const [gameMessage, setGameMessage] = useState('');
 
 
   // Purely meant for refreshing app and spreading current state.
@@ -24,12 +26,14 @@ function App() {
 
     Welcome to Tic Tac Toe!
     <br/><br/>
-    <NewGame  parentState={[playerNumber, TicTacToe]} setParentState={[setPlayerNumber, setTicTacToe]}></NewGame>
+    <NewGame  parentState={[playerNumber, TicTacToe]} setParentState={[setPlayerNumber, setTicTacToe, setGameMessage]}></NewGame>
     <br/><br/>
-    <JoinGame parentState={[playerNumber, TicTacToe]} setParentState={[setPlayerNumber, setTicTacToe]}></JoinGame>
+    <JoinGame parentState={[playerNumber, TicTacToe]} setParentState={[setPlayerNumber, setTicTacToe, setGameMessage]}></JoinGame>
     <br></br>
 
-    <Board parentState={[playerNumber, TicTacToe]} setParentState={[setPlayerNumber, setTicTacToe]}></Board>
+    <Board parentState={[playerNumber, TicTacToe]} setParentState={[setPlayerNumber, setTicTacToe, setGameMessage]}></Board>
+
+    {gameMessage}
     
    </>
   );
