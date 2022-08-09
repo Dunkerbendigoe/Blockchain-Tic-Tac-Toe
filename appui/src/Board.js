@@ -6,14 +6,29 @@ const Board =  ({parentState, setParentState}) => {
   const ref = useRef(null)
   const [boardElements, setBoardElements] = useState([0,0,0,0,0,0,0,0,0])
   //const [gameOver, setGameOver] = useState(false) can have this be global state later
-
+  const [player, setPlayer] = useState()
 
   useEffect(() => {
     const interval = setInterval(() =>{
       if(typeof parentState[1] != 'undefined'){
+
+        if(parentState[0].playerNumber == 1){
+          setPlayer(account0)
+        }else{
+          setPlayer(account1)
+        }
+
         parentState[1].methods.displayBoard().call().then(function(res){
           setBoardElements(res)
         })
+
+        parentState[1].methods.myTurn(parentState[0].playerNumber).call({from:player}).then(function(res){
+          if(res){
+            setParentState[2]('Your Turn!')
+          }
+        })
+        
+        
       }
 
 
@@ -27,37 +42,34 @@ const Board =  ({parentState, setParentState}) => {
         if(checkWin()){
           return;
         }
-        const target = event.target.getAttribute("data-pos")
-        console.log(target)
-        let accnt;
-            if(parentState[0].playerNumber == 1){
-              accnt = account0;
-            }else{
-              accnt = account1;
-          }
-          console.log("playing as")
-            console.log(parentState[0].playerNumber)
-        parentState[1].methods.validMove(target).call({from:accnt}).then(function(res){
+        const target = event.target.getAttribute("data-pos")        
+        parentState[1].methods.validMove(target).call({from:player}).then(function(res){
           if(res){
-            let accnt;
-            if(parentState[0].playerNumber == 1){
-              accnt = account0;
-            }else{
-              accnt = account1;
-            }
-            console.log(parentState[0])
-            parentState[1].methods.play(target).send({from: accnt, gas:'3000000'}).catch(function(err){
+            parentState[1].methods.play(target).send({from: player, gas:'3000000'}).catch(function(err){
               console.log('something went wrong ' + String(err))
             }).then(function(res){
               // Tried to remove event listener
               //const element = ref.current;
               //element.removeEventListener('click', clickHandler)
               // + then force update or render whichever, not needed since we can't remove event listener yet
+              
+              parentState[1].methods.winner().call({from:player}).then(function(res){
+                if(res == 0){
+                  parentState[1].methods.myTurn(parentState[0].playerNumber).call({from:player}).then(function(res){
+                    if(res){
+                      setParentState[2]('Your Turn!')
+                    }else{
+                      setParentState[2]('Not Your Turn!')
+                    }
+                  })
+                } else {
+                  checkWin();
+                }
+              })              
+              
             })
           }else{
-            console.log("playing as")
-            console.log(parentState[0].playerNumber)
-            console.log('valid move is false')
+            // invalid move
           }
         })
       }
@@ -82,12 +94,14 @@ const Board =  ({parentState, setParentState}) => {
         if(win > 0){
           if(win == 3){
             displayResult = "Draw ! game is over"
+            setParentState[2](displayResult)
           } else if (win == 2){
             displayResult = "Player 2 wins ! game is over"
+            setParentState[2](displayResult)
           } else if (win == 1){
             displayResult = "Player 1 wins ! game is over"
+            setParentState[2](displayResult)
           }
-          //setGameOver(true)
         }
       })
       if(win > 0){

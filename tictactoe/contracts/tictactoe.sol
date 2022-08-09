@@ -25,8 +25,7 @@ pragma solidity ^0.8.7;
 
 
         function myTurn(uint _turnNumber) public view returns (bool) {
-            return (msg.sender == p1Address && _turnNumber == 1) || (msg.sender == p2Address && _turnNumber == 2);
-
+            return (msg.sender == p1Address && _turnNumber == turnNumber && winCondition == 0) || (msg.sender == p2Address && _turnNumber == turnNumber && winCondition == 0);
         }
 
         function kill() public {

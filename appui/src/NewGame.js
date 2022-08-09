@@ -20,6 +20,7 @@ const NewGame = ({parentState, setParentState}) => {
                     setParentState[1](new web3.eth.Contract(TicTacToeABI, receipt.to))
                     setParentState[0]({playerNumber:1, hidden:false})
                     setReceiptContractAddress(receipt.to)
+                    setParentState[2]('Your Turn!')
                 })
             });
         }
