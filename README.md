@@ -1,4 +1,4 @@
-# Blockchain-Tic-Tac-Toe
+# Blockchain Tic-Tac-Toe
 
 ## Introduction
 
