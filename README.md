@@ -28,7 +28,7 @@ A program to run a game of Tic Tac Toe on the blockchain between two users utili
 
 ## Demo video
 
-Demo: [Link to demo](https://youtu.be/GoT_N2fp37c)
+Demo: [Link to YouTube](https://youtu.be/GoT_N2fp37c)
 
 ## Contributors
 
