@@ -23,8 +23,8 @@ A program to run a game of Tic Tac Toe on the blockchain between two users utili
 ### Run
 1. Deploy contracts
 2. Ensure correct address for "Account0" and "Account1"
-3. Launch React App
-4. Enter corresponding contract address from deployment.
+3. Launch React App with 'npm start'
+4. Enter corresponding contract address from deployment in config.js
 
 ## Demo video
 
