@@ -9,10 +9,6 @@ pragma solidity ^0.8.7;
         uint winCondition;
         uint turnNumber;
 
-        //function makeMove(uint board[]) returns (){
-
-        //}
-
         constructor(address payable p2) {
             p1Address = payable(msg.sender);
             p2Address = p2;
